@@ -5,25 +5,22 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.material3.NavigationBar as Material3NavigationBar
 
 @Composable
-fun CustomNavigationBar(navController: NavController) {
+fun CustomNavigationBar(navController: NavController, currentScreen: Screen?) {
     Material3NavigationBar {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val route = navBackStackEntry?.destination?.route
-
-        SCREENS.forEach { screen ->
-            ScreenNavigationItem(
-                screen = screen,
-                isSelected = route == screen.route,
-                navController = navController
-            )
-        }
+        SCREENS
+            .filter { it.isVisible }
+            .forEach { screen ->
+                ScreenNavigationItem(
+                    screen = screen,
+                    isSelected = currentScreen == screen,
+                    navController = navController
+                )
+            }
     }
 }
 
