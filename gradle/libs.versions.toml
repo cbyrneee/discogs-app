@@ -31,6 +31,10 @@ androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-cor
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation-compose" }
 
+# build-logic
+gradle-plugin-android = { group = "com.android.tools.build", name = "gradle", version.ref = "plugin-android" }
+gradle-plugin-kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "plugin-kotlin" }
+
 # Compose
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
@@ -64,6 +68,7 @@ retrofit-kotlinx-serialization = { module = "com.jakewharton.retrofit:retrofit2-
 [bundles]
 androidx = ["androidx-core"]
 androidx-compose = ["androidx-activity-compose", "androidx-navigation-compose"]
+buildlogic = ["gradle-plugin-android", "gradle-plugin-kotlin"]
 compose = ["compose-ui", "compose-ui-tooling-preview", "compose-material3"]
 compose-debug = ["compose-ui-tooling", "compose-ui-test-manifest"]
 hilt = ["hilt", "hilt-navigation-compose"]
