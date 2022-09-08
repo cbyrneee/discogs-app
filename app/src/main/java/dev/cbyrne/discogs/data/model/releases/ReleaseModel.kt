@@ -9,8 +9,15 @@ data class ReleaseModel(
     val title: String,
     val uri: String,
     val notes: String? = null,
-    val artists: List<Artist>
+    val artists: List<Artist>,
+    val images: List<Image>
 ) {
+    @Serializable
+    data class Image(
+        val uri: String,
+        val type: String
+    )
+
     @Serializable
     data class Artist(
         val name: String,
