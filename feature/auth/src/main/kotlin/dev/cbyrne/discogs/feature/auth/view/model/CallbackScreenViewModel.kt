@@ -50,9 +50,12 @@ class CallbackScreenViewModel @Inject constructor(
 
         state = when (response) {
             is ApiResult.Success -> {
-                val userCredentials = UserCredentials(response.data.token)
-                userRepository.credentials = userCredentials
+                val userCredentials = UserCredentials(
+                    token = response.data.token,
+                    secret = response.data.tokenSecret
+                )
 
+                userRepository.credentials = userCredentials
                 CallbackScreenState.Success
             }
             is ApiResult.Error ->

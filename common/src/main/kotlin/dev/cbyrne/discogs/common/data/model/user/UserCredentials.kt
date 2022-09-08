@@ -4,5 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserCredentials(
-    val accessToken: String
+    val token: String,
+    val secret: String
 )
