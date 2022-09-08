@@ -7,9 +7,16 @@ import kotlin.reflect.KProperty
 
 class NamedMapDelegateM<T>(
     private val map: Map<String, Any?>,
-    private val name: String
+    private val name: String,
+    private val transform: (Any?) -> T
 ) : ReadOnlyProperty<Any, T> {
-    override fun getValue(thisRef: Any, property: KProperty<*>): T = map[name] as T
+    @Suppress("UNCHECKED_CAST")
+    override fun getValue(thisRef: Any, property: KProperty<*>): T = transform(map[name])
 }
 
-fun <T> Map<String, Any?>.named(name: String): NamedMapDelegateM<T> = NamedMapDelegateM(this, name)
+@Suppress("UNCHECKED_CAST")
+fun <T> Map<String, Any?>.named(
+    name: String,
+    transform: (Any?) -> T = { it as T }
+): NamedMapDelegateM<T> =
+    NamedMapDelegateM(this, name, transform)
