@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import dev.cbyrne.discogs.common.navigation.Route
 import dev.cbyrne.discogs.feature.auth.navigation.authRoutes
 import dev.cbyrne.discogs.ui.view.HomeView
+import dev.cbyrne.discogs.ui.view.SettingsView
 
 @Composable
 fun RootView(
@@ -29,6 +30,10 @@ fun RootView(
 
         composable(Route.Home.route) {
             HomeView()
+        }
+
+        composable(Route.Settings.route) {
+            SettingsView(navigateTo = { navController.navigate(it.route) })
         }
     }
 }

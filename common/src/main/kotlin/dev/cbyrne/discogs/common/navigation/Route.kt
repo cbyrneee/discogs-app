@@ -3,6 +3,7 @@ package dev.cbyrne.discogs.common.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 
 open class Route(
@@ -34,5 +35,11 @@ open class Route(
         route = "home",
         name = "Home",
         icon = Icons.Filled.Home,
+    )
+
+    object Settings : Route(
+        route = "settings",
+        name = "Settings",
+        icon = Icons.Filled.Settings
     )
 }
