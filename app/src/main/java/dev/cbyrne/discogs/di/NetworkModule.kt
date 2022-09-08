@@ -10,6 +10,8 @@ import dagger.hilt.components.SingletonComponent
 import dev.cbyrne.discogs.data.api.ApiService
 import json
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -20,6 +22,7 @@ object NetworkModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient =
         OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().setLevel(Level.BODY))
             .build()
 
     @Provides

@@ -60,6 +60,7 @@ lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", ver
 
 # OkHttp
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 
 # Retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
@@ -74,7 +75,7 @@ compose-debug = ["compose-ui-tooling", "compose-ui-test-manifest"]
 hilt = ["hilt", "hilt-navigation-compose"]
 kotlinx-serialization = ["kotlinx-serialization-json"]
 lifecycle = ["lifecycle-runtime", "lifecycle-viewmodel-ktx", "lifecycle-viewmodel-compose", "lifecycle-livedata"]
-okhttp = ["okhttp"]
+okhttp = ["okhttp", "okhttp-logging-interceptor"]
 retrofit = ["retrofit", "retrofit-kotlinx-serialization"]
 
 [plugins]
