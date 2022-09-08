@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs.feature.auth.data.repository
+package dev.cbyrne.discogs.common.repository.storage
 
 interface SecureStorageRepository {
     fun set(key: String, value: String)

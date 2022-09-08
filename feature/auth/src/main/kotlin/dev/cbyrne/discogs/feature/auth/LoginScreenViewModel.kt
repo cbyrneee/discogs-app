@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.cbyrne.discogs.common.network.ApiResult
 import dev.cbyrne.discogs.common.network.handleApiResponse
 import dev.cbyrne.discogs.feature.auth.data.repository.OauthRepository
-import dev.cbyrne.discogs.feature.auth.data.repository.SecureStorageRepository
+import dev.cbyrne.discogs.common.repository.storage.SecureStorageRepository
 import javax.inject.Inject
 
 @HiltViewModel

@@ -1,10 +1,10 @@
-package dev.cbyrne.discogs.feature.auth.data.repository.impl
+package dev.cbyrne.discogs.common.repository.storage.impl
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dev.cbyrne.discogs.feature.auth.data.repository.SecureStorageRepository
+import dev.cbyrne.discogs.common.repository.storage.SecureStorageRepository
 import javax.inject.Inject
 
 class SecureStorageRepositoryImpl @Inject constructor(
