@@ -1,6 +1,7 @@
 import dev.cbyrne.discogs.buildlogic.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 
 @Suppress("unused")
 class AndroidAppConventionPlugin : Plugin<Project> {
@@ -31,6 +32,10 @@ class AndroidAppConventionPlugin : Plugin<Project> {
                         "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
                     )
                 }
+            }
+
+            dependencies {
+                add("implementation", libs.findBundle("androidx").get())
             }
         }
     }
