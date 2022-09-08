@@ -9,15 +9,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import dev.cbyrne.discogs.ui.layout.CenteredColumn
 
 @Composable
-fun CallbackScreen(navigateToLogin: () -> Unit, token: String?) {
-    LaunchedEffect(token) {
-        if (token == null) {
-            navigateToLogin()
-            return@LaunchedEffect
-        }
+fun CallbackScreen(
+    navigateToLogin: () -> Unit,
+    token: String?,
+    verifier: String?,
+    viewModel: CallbackScreenViewModel = hiltViewModel()
+) {
+    LaunchedEffect(Unit) {
+        viewModel.handleToken(token, verifier)
     }
 
     CenteredColumn(modifier = Modifier.padding(16.dp)) {

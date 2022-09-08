@@ -16,12 +16,13 @@ fun NavGraphBuilder.authRoutes(navController: NavHostController) {
     composable(
         route = Route.Auth.Callback.route,
         deepLinks = listOf(navDeepLink {
-            uriPattern = "discogs://callback?oauth_token={oauth_token}"
+            uriPattern = "discogs://callback?oauth_token={oauth_token}&oauth_verifier={oauth_verifier}"
         })
     ) {
         CallbackScreen(
             { navController.navigate(Route.Auth.Login.route) },
-            it.arguments?.getString("oauth_token")
+            it.arguments?.getString("oauth_token"),
+            it.arguments?.getString("oauth_verifier")
         )
     }
 }
