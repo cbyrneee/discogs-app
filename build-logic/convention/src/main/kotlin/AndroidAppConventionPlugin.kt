@@ -1,4 +1,7 @@
-import dev.cbyrne.discogs.buildlogic.*
+import dev.cbyrne.discogs.buildlogic.TARGET_SDK
+import dev.cbyrne.discogs.buildlogic.android
+import dev.cbyrne.discogs.buildlogic.configureAndroid
+import dev.cbyrne.discogs.buildlogic.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -13,24 +16,10 @@ class AndroidAppConventionPlugin : Plugin<Project> {
             }
 
             android {
-                compileSdk = TARGET_SDK
+                configureAndroid(this)
 
                 defaultConfig {
-                    minSdk = MIN_SDK
                     targetSdk = TARGET_SDK
-                }
-
-                compileOptions {
-                    sourceCompatibility = TARGET_JAVA_VERSION
-                    targetCompatibility = TARGET_JAVA_VERSION
-                }
-
-                kotlinOptions {
-                    jvmTarget = TARGET_JAVA_VERSION.toString()
-                    freeCompilerArgs = listOf(
-                        "-opt-in=kotlinx.serialization.ExperimentalSerializationApi",
-                        "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
-                    )
                 }
             }
 

@@ -1,6 +1,7 @@
 package dev.cbyrne.discogs.buildlogic
 
 import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
@@ -15,6 +16,8 @@ fun CommonExtension<*, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit
 }
 
 fun Project.android(block: BaseAppModuleExtension.() -> Unit) = extensions.configure(block)
+
+fun Project.androidLibrary(block: LibraryExtension.() -> Unit) = extensions.configure(block)
 
 val Project.libs: VersionCatalog
     get() = extensions.getByType<VersionCatalogsExtension>().named("libs")

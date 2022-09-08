@@ -2,8 +2,8 @@
 
 plugins {
     id("discogs.android.app")
+    id("discogs.android.app.compose")
     id("discogs.common")
-    id("discogs.compose")
 }
 
 android {
