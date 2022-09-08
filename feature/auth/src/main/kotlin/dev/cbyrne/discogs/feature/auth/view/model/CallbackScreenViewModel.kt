@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.cbyrne.discogs.common.network.ApiResult
 import dev.cbyrne.discogs.common.network.handleApiResponse
-import dev.cbyrne.discogs.feature.auth.data.repository.OauthRepository
 import dev.cbyrne.discogs.common.repository.storage.SecureStorageRepository
+import dev.cbyrne.discogs.feature.auth.data.repository.OauthRepository
 import javax.inject.Inject
 
 sealed class CallbackScreenState {
@@ -51,7 +51,7 @@ class CallbackScreenViewModel @Inject constructor(
                 CallbackScreenState.Success
             }
             is ApiResult.Error ->
-                CallbackScreenState.Error(response.message ?: "Invalid oauth token!")
+                CallbackScreenState.Error("Error whilst authenticating. Please try again!")
             else ->
                 CallbackScreenState.Error("Unknown error")
         }
