@@ -15,7 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun LoginScreen(navigateToHome: () -> Unit, viewModel: LoginScreenViewModel = hiltViewModel()) {
+fun LoginScreen(viewModel: LoginScreenViewModel = hiltViewModel()) {
     val coroutineScope = rememberCoroutineScope()
     val uriHandler = LocalUriHandler.current
 

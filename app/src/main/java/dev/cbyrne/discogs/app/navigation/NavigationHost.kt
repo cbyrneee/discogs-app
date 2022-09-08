@@ -18,7 +18,7 @@ fun NavigationHost(navController: NavHostController, paddingValues: PaddingValue
         startDestination = Route.Login.route
     ) {
         composable(Route.Login.route) {
-            LoginScreen(navigateToHome = { navController.navigate(Route.Home.route) })
+            LoginScreen()
         }
 
         composable(Route.Home.route) {
