@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.cbyrne.discogs.data.model.releases.ReleaseModel
 import dev.cbyrne.discogs.data.repository.MainRepository
-import dev.cbyrne.discogs.network.ApiResult
-import dev.cbyrne.discogs.network.handleApiResponse
+import dev.cbyrne.discogs.common.network.ApiResult
+import dev.cbyrne.discogs.common.network.handleApiResponse
 import javax.inject.Inject
 
 sealed class HomeUiState {

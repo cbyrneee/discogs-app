@@ -1,6 +1,6 @@
 package dev.cbyrne.discogs.feature.auth.data.model
 
-import dev.cbyrne.discogs.feature.auth.util.named
+import dev.cbyrne.discogs.common.util.named
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -19,7 +19,6 @@ data class OauthTokenModel(
 
 object OauthTokenModelSerializer : KSerializer<OauthTokenModel> {
     override val descriptor = PrimitiveSerialDescriptor("OauthTokenModel", PrimitiveKind.STRING)
-
     override fun deserialize(decoder: Decoder): OauthTokenModel {
         val string = decoder.decodeString()
         val entries = string.split("&")

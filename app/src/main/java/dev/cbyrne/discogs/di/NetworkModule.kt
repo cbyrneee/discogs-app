@@ -1,14 +1,14 @@
 package dev.cbyrne.discogs.di
 
-import BASE_URL
-import JSON_MEDIA_TYPE
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.cbyrne.discogs.common.util.BASE_URL
+import dev.cbyrne.discogs.common.util.JSON_MEDIA_TYPE
+import dev.cbyrne.discogs.common.util.json
 import dev.cbyrne.discogs.data.api.ApiService
-import json
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level

@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs.data.model.generic
+package dev.cbyrne.discogs.common.data.model
 
 import kotlinx.serialization.Serializable
 
