@@ -25,3 +25,7 @@ android {
         }
     }
 }
+
+dependencies {
+    implementation(project(":feature:auth"))
+}

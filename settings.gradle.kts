@@ -19,3 +19,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Discogs"
 include(":app")
+include(":feature:auth")

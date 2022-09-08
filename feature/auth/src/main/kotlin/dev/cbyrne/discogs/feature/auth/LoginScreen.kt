@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs.ui.view
+package dev.cbyrne.discogs.feature.auth
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoginView(navigateToHome: () -> Unit) {
+fun LoginScreen(navigateToHome: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(16.dp)
