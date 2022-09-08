@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs.feature.auth
+package dev.cbyrne.discogs.feature.auth.view.model
 
 import androidx.compose.ui.platform.UriHandler
 import androidx.lifecycle.ViewModel

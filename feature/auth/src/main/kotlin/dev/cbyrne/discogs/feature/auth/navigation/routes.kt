@@ -5,8 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
 import dev.cbyrne.discogs.common.navigation.Route
-import dev.cbyrne.discogs.feature.auth.CallbackScreen
-import dev.cbyrne.discogs.feature.auth.LoginScreen
+import dev.cbyrne.discogs.feature.auth.view.CallbackScreen
+import dev.cbyrne.discogs.feature.auth.view.LoginScreen
 
 fun NavGraphBuilder.authRoutes(navController: NavHostController) {
     composable(Route.Auth.Login.route) {
