@@ -1,6 +1,6 @@
 package dev.cbyrne.discogs.common.di
 
-import applyCredentials
+import dev.cbyrne.discogs.common.util.applyCredentials
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides

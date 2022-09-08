@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.cbyrne.discogs.common.BuildConfig
 import dev.cbyrne.discogs.common.data.model.user.UserCredentials
 import dev.cbyrne.discogs.common.network.ApiResult
 import dev.cbyrne.discogs.common.network.handleApiResponse
@@ -40,8 +41,8 @@ class CallbackScreenViewModel @Inject constructor(
 
         val response = handleApiResponse {
             oauthRepository.getAccessToken(
-                consumerKey = "jXjOtjTnxNVgHiTDJqoP",
-                signature = "PCKFQRysJsRlutrEfcOGfhwHzbxKBUuv",
+                consumerKey = BuildConfig.CONSUMERKEY,
+                signature = BuildConfig.CONSUMERSECRET,
                 token = token,
                 verifier = verifier,
                 secret = secret
