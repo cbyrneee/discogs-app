@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
@@ -16,9 +17,11 @@ import kotlinx.coroutines.launch
 @Composable
 fun LoginScreen(navigateToHome: () -> Unit, viewModel: LoginScreenViewModel = hiltViewModel()) {
     val coroutineScope = rememberCoroutineScope()
+    val uriHandler = LocalUriHandler.current
+
     val authorize: () -> Unit = {
         coroutineScope.launch {
-            viewModel.getRequestToken()
+            viewModel.getRequestToken(uriHandler)
         }
     }
 
