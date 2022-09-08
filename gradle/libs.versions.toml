@@ -2,6 +2,8 @@
 plugin-android = "7.4.0-alpha10"
 plugin-kotlin = "1.7.0"
 
+accompanist-systemuicontroller = "0.26.2-beta"
+
 androidx-core = "1.8.0"
 androidx-security-crypto = "1.0.0"
 
@@ -25,6 +27,8 @@ retrofit = "2.9.0"
 retrofit-kotlinx-serialization = "0.8.0"
 
 [libraries]
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist-systemuicontroller" }
+
 # AndroidX core
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "androidx-security-crypto" }
@@ -69,6 +73,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 retrofit-kotlinx-serialization = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit-kotlinx-serialization" }
 
 [bundles]
+accompanist = ["accompanist-systemuicontroller"]
 androidx = ["androidx-core"]
 androidx-compose = ["androidx-activity-compose", "androidx-navigation-compose", "androidx-security-crypto"]
 buildlogic = ["gradle-plugin-android", "gradle-plugin-kotlin"]

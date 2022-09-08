@@ -18,6 +18,9 @@ fun Project.configureCompose(extension: CommonExtension<*, *, *, *>) {
     }
 
     dependencies {
+        // Accompanist
+        add("implementation", libs.findBundle("accompanist").get())
+
         // AndroidX
         add("implementation", libs.findBundle("androidx.compose").get())
 
