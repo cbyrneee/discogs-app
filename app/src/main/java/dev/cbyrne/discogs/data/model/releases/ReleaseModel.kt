@@ -10,7 +10,7 @@ data class ReleaseModel(
     val uri: String,
     val notes: String? = null,
     val artists: List<Artist>,
-    val images: List<Image>
+    val images: List<Image>? = null
 ) {
     @Serializable
     data class Image(

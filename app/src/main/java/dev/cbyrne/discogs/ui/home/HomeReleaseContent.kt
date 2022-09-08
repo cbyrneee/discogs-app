@@ -24,19 +24,22 @@ import dev.cbyrne.discogs.data.model.releases.ReleaseModel
 fun HomeReleaseContent(release: ReleaseModel) {
     val uriHandler = LocalUriHandler.current
 
-    HorizontalPager(count = release.images.size) {
-        SubcomposeAsyncImage(
-            model = release.images[it].uri,
-            contentDescription = "Image",
-            modifier = Modifier
-                .aspectRatio(1f)
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(5.dp)),
-            loading = {
-                CircularProgressIndicator()
-            },
-            contentScale = ContentScale.Crop
-        )
+    release.images?.let {
+        HorizontalPager(count = it.size) { index ->
+            SubcomposeAsyncImage(
+                model = it[index].uri,
+                contentDescription = "Image",
+                modifier = Modifier
+                    .aspectRatio(1f)
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(5.dp)),
+                loading = {
+                    CircularProgressIndicator()
+                },
+                contentScale = ContentScale.Crop
+            )
+        }
+
     }
 
     Column {
