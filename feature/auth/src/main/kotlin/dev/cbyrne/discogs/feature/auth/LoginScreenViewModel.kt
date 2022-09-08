@@ -16,6 +16,6 @@ class LoginScreenViewModel @Inject constructor(
             callback = "balls"
         )
 
-        println(response.message())
+        print(response.body()?.callbackConfirmed)
     }
 }
