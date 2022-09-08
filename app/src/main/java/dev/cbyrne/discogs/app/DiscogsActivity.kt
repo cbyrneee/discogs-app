@@ -19,7 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.cbyrne.discogs.app.navigation.CustomNavigationBar
-import dev.cbyrne.discogs.app.navigation.NavigationHost
+import dev.cbyrne.discogs.RootView
 import dev.cbyrne.discogs.app.navigation.currentRouteFromBackStack
 import dev.cbyrne.discogs.app.theme.DiscogsTheme
 
@@ -59,7 +59,7 @@ class DiscogsActivity : ComponentActivity() {
                             }
                         }
                     ) {
-                        NavigationHost(navController = navController, paddingValues = it)
+                        RootView(navController = navController, paddingValues = it)
                     }
                 }
             }

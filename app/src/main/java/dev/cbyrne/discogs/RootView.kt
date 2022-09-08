@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs.app.navigation
+package dev.cbyrne.discogs
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -12,7 +12,7 @@ import dev.cbyrne.discogs.feature.auth.navigation.authRoutes
 import dev.cbyrne.discogs.ui.view.HomeView
 
 @Composable
-fun NavigationHost(navController: NavHostController, paddingValues: PaddingValues) {
+fun RootView(navController: NavHostController, paddingValues: PaddingValues) {
     NavHost(
         modifier = Modifier.padding(paddingValues),
         navController = navController,
