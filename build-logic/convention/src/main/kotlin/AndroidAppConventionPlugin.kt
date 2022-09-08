@@ -1,11 +1,6 @@
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import dev.cbyrne.discogs.buildlogic.MIN_SDK
-import dev.cbyrne.discogs.buildlogic.TARGET_JAVA_VERSION
-import dev.cbyrne.discogs.buildlogic.TARGET_SDK
-import dev.cbyrne.discogs.buildlogic.kotlinOptions
+import dev.cbyrne.discogs.buildlogic.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.configure
 
 @Suppress("unused")
 class AndroidAppConventionPlugin : Plugin<Project> {
@@ -16,7 +11,7 @@ class AndroidAppConventionPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
             }
 
-            extensions.configure<BaseAppModuleExtension> {
+            android {
                 compileSdk = TARGET_SDK
 
                 defaultConfig {
