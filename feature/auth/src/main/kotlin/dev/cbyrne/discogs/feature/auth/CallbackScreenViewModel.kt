@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.cbyrne.discogs.common.network.ApiResult
 import dev.cbyrne.discogs.common.network.handleApiResponse
 import dev.cbyrne.discogs.feature.auth.data.repository.OauthRepository
+import dev.cbyrne.discogs.feature.auth.data.repository.SecureStorageRepository
 import javax.inject.Inject
 
 sealed class CallbackScreenState {
@@ -19,7 +20,8 @@ sealed class CallbackScreenState {
 
 @HiltViewModel
 class CallbackScreenViewModel @Inject constructor(
-    private val oauthRepository: OauthRepository
+    private val oauthRepository: OauthRepository,
+    private val secureStorageRepository: SecureStorageRepository
 ) : ViewModel() {
     var state by mutableStateOf<CallbackScreenState>(CallbackScreenState.Loading)
         private set
@@ -27,7 +29,8 @@ class CallbackScreenViewModel @Inject constructor(
     suspend fun handleToken(token: String?, verifier: String?) {
         state = CallbackScreenState.Loading
 
-        if (token == null || verifier == null) {
+        val secret = secureStorageRepository.get("oauth_token_secret")
+        if (token == null || verifier == null || secret == null) {
             state = CallbackScreenState.Error(reason = "Please supply an oauth token!")
             return
         }
@@ -37,7 +40,8 @@ class CallbackScreenViewModel @Inject constructor(
                 consumerKey = "jXjOtjTnxNVgHiTDJqoP",
                 signature = "PCKFQRysJsRlutrEfcOGfhwHzbxKBUuv",
                 token = token,
-                verifier = verifier
+                verifier = verifier,
+                secret = secret
             )
         }
 

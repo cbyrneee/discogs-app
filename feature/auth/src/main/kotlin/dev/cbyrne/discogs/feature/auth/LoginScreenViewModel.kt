@@ -6,11 +6,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.cbyrne.discogs.common.network.ApiResult
 import dev.cbyrne.discogs.common.network.handleApiResponse
 import dev.cbyrne.discogs.feature.auth.data.repository.OauthRepository
+import dev.cbyrne.discogs.feature.auth.data.repository.SecureStorageRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginScreenViewModel @Inject constructor(
-    private val oauthRepository: OauthRepository
+    private val oauthRepository: OauthRepository,
+    private val secureStorageRepository: SecureStorageRepository
 ) : ViewModel() {
     suspend fun getRequestToken(uriHandler: UriHandler) {
         val response = handleApiResponse {
@@ -22,8 +24,11 @@ class LoginScreenViewModel @Inject constructor(
         }
 
         when (response) {
-            is ApiResult.Success ->
+            is ApiResult.Success -> {
+                secureStorageRepository.set("oauth_token_secret", response.data.tokenSecret)
                 uriHandler.openUri("https://discogs.com/oauth/authorize?oauth_token=${response.data.token}")
+            }
+
             else -> error(response)
         }
     }

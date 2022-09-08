@@ -21,6 +21,7 @@ interface OauthRepository {
         signature: String,
         signatureMethod: String = "PLAINTEXT",
         timestamp: String = "${System.currentTimeMillis()}",
-        verifier: String
+        verifier: String,
+        secret: String
     ): Response<OauthAccessTokenModel>
 }

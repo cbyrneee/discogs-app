@@ -42,13 +42,14 @@ class OauthRepositoryImpl @Inject constructor(
         signature: String,
         signatureMethod: String,
         timestamp: String,
-        verifier: String
+        verifier: String,
+        secret: String
     ): Response<OauthAccessTokenModel> {
         val authorization = mapOf(
             "oauth_consumer_key" to consumerKey,
             "oauth_nonce" to nonce,
             "oauth_token" to token,
-            "oauth_signature" to "$signature&",
+            "oauth_signature" to "$signature&$secret",
             "oauth_signature_method" to signatureMethod,
             "oauth_timestamp" to timestamp,
             "oauth_verifier" to verifier
