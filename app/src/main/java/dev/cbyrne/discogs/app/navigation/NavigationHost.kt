@@ -16,7 +16,7 @@ fun NavigationHost(navController: NavHostController, paddingValues: PaddingValue
     NavHost(
         modifier = Modifier.padding(paddingValues),
         navController = navController,
-        startDestination = Route.Login.route
+        startDestination = Route.Auth.Login.route
     ) {
         authRoutes()
 

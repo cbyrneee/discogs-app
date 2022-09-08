@@ -6,7 +6,7 @@ import dev.cbyrne.discogs.common.navigation.Route
 import dev.cbyrne.discogs.feature.auth.LoginScreen
 
 fun NavGraphBuilder.authRoutes() {
-    composable(Route.Login.route) {
+    composable(Route.Auth.Login.route) {
         LoginScreen()
     }
 }

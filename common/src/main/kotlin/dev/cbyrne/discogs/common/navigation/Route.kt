@@ -12,13 +12,15 @@ open class Route(
     val isVisible: Boolean = true,
     val hidesNavigationBar: Boolean = false
 ) {
-    object Login : Route(
-        route = "login",
-        name = "Login",
-        icon = Icons.Filled.Lock,
-        isVisible = false,
-        hidesNavigationBar = true
-    )
+    object Auth {
+        object Login : Route(
+            route = "auth/login",
+            name = "Login",
+            icon = Icons.Filled.Lock,
+            isVisible = false,
+            hidesNavigationBar = true
+        )
+    }
 
     object Home : Route(
         route = "home",
