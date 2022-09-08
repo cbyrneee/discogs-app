@@ -5,9 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.cbyrne.discogs.common.data.model.user.UserCredentials
 import dev.cbyrne.discogs.common.network.ApiResult
 import dev.cbyrne.discogs.common.network.handleApiResponse
 import dev.cbyrne.discogs.common.repository.storage.SecureStorageRepository
+import dev.cbyrne.discogs.common.repository.user.UserRepository
 import dev.cbyrne.discogs.feature.auth.data.repository.OauthRepository
 import javax.inject.Inject
 
@@ -21,7 +23,8 @@ sealed class CallbackScreenState {
 @HiltViewModel
 class CallbackScreenViewModel @Inject constructor(
     private val oauthRepository: OauthRepository,
-    private val secureStorageRepository: SecureStorageRepository
+    private val secureStorageRepository: SecureStorageRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
     var state by mutableStateOf<CallbackScreenState>(CallbackScreenState.Loading)
         private set
@@ -47,7 +50,9 @@ class CallbackScreenViewModel @Inject constructor(
 
         state = when (response) {
             is ApiResult.Success -> {
-                println("Token: ${response.data.token} Secret: ${response.data.tokenSecret}")
+                val userCredentials = UserCredentials(response.data.token)
+                userRepository.credentials = userCredentials
+
                 CallbackScreenState.Success
             }
             is ApiResult.Error ->
