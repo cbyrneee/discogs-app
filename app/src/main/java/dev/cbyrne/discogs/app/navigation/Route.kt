@@ -6,14 +6,14 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavBackStackEntry
 
-sealed class Screen(
+sealed class Route(
     val route: String,
     val name: String,
     val icon: ImageVector,
     val isVisible: Boolean = true,
     val hidesNavigationBar: Boolean = false
 ) {
-    object Login : Screen(
+    object Login : Route(
         route = "login",
         name = "Login",
         icon = Icons.Filled.Lock,
@@ -21,16 +21,16 @@ sealed class Screen(
         hidesNavigationBar = true
     )
 
-    object Home : Screen(
+    object Home : Route(
         route = "home",
         name = "Home",
         icon = Icons.Filled.Home,
     )
 }
 
-internal val SCREENS = setOf(Screen.Home)
+internal val ROUTES = setOf(Route.Home)
 
-internal fun currentScreenFromBackStack(backStackEntry: NavBackStackEntry?): Screen? {
+internal fun currentRouteFromBackStack(backStackEntry: NavBackStackEntry?): Route? {
     val route = backStackEntry?.destination?.route
-    return SCREENS.firstOrNull { it.route == route }
+    return ROUTES.firstOrNull { it.route == route }
 }

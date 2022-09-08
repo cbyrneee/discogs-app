@@ -15,13 +15,13 @@ fun NavigationHost(navController: NavHostController, paddingValues: PaddingValue
     NavHost(
         modifier = Modifier.padding(paddingValues),
         navController = navController,
-        startDestination = Screen.Login.route
+        startDestination = Route.Login.route
     ) {
-        composable(Screen.Login.route) {
-            LoginScreen(navigateToHome = { navController.navigate(Screen.Home.route) })
+        composable(Route.Login.route) {
+            LoginScreen(navigateToHome = { navController.navigate(Route.Home.route) })
         }
 
-        composable(Screen.Home.route) {
+        composable(Route.Home.route) {
             HomeView()
         }
     }

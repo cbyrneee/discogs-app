@@ -10,14 +10,14 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.compose.material3.NavigationBar as Material3NavigationBar
 
 @Composable
-fun CustomNavigationBar(navController: NavController, currentScreen: Screen?) {
+fun CustomNavigationBar(navController: NavController, currentRoute: Route?) {
     Material3NavigationBar {
-        SCREENS
+        ROUTES
             .filter { it.isVisible }
             .forEach { screen ->
                 ScreenNavigationItem(
-                    screen = screen,
-                    isSelected = currentScreen == screen,
+                    route = screen,
+                    isSelected = currentRoute == screen,
                     navController = navController
                 )
             }
@@ -26,16 +26,16 @@ fun CustomNavigationBar(navController: NavController, currentScreen: Screen?) {
 
 @Composable
 fun RowScope.ScreenNavigationItem(
-    screen: Screen,
+    route: Route,
     isSelected: Boolean,
     navController: NavController
 ) {
     NavigationBarItem(
-        icon = { Icon(imageVector = screen.icon, contentDescription = screen.name) },
-        label = { Text(text = screen.name) },
+        icon = { Icon(imageVector = route.icon, contentDescription = route.name) },
+        label = { Text(text = route.name) },
         selected = isSelected,
         onClick = {
-            navController.navigate(screen.route) {
+            navController.navigate(route.route) {
                 popUpTo(navController.graph.findStartDestination().id) {
                     saveState = true
                 }
