@@ -3,7 +3,6 @@ package dev.cbyrne.discogs.feature.auth.view.model
 import androidx.compose.ui.platform.UriHandler
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.cbyrne.discogs.common.BuildConfig
 import dev.cbyrne.discogs.common.network.ApiResult
 import dev.cbyrne.discogs.common.network.handleApiResponse
 import dev.cbyrne.discogs.common.repository.storage.SecureStorageRepository
@@ -17,11 +16,7 @@ class LoginScreenViewModel @Inject constructor(
 ) : ViewModel() {
     suspend fun getRequestToken(uriHandler: UriHandler) {
         val response = handleApiResponse {
-            oauthRepository.getRequestToken(
-                consumerKey = BuildConfig.CONSUMERKEY,
-                signature = BuildConfig.CONSUMERSECRET,
-                callback = "discogs://callback"
-            )
+            oauthRepository.getRequestToken(callback = "discogs://callback")
         }
 
         when (response) {
