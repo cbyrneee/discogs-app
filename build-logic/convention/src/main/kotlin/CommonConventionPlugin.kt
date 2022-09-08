@@ -27,6 +27,9 @@ class CommonConventionPlugin : Plugin<Project> {
 
                 // Retrofit
                 add("implementation", libs.findBundle("retrofit").get())
+
+                // Misc
+                add("implementation", libs.findBundle("misc").get())
             }
         }
     }

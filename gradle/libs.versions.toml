@@ -2,7 +2,7 @@
 plugin-android = "7.4.0-alpha10"
 plugin-kotlin = "1.7.0"
 
-accompanist-systemuicontroller = "0.26.2-beta"
+accompanist = "0.26.2-beta"
 
 androidx-core = "1.8.0"
 androidx-security-crypto = "1.0.0"
@@ -26,8 +26,11 @@ okhttp = "4.10.0"
 retrofit = "2.9.0"
 retrofit-kotlinx-serialization = "0.8.0"
 
+coil = "2.2.1"
+
 [libraries]
-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist-systemuicontroller" }
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
 
 # AndroidX core
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -72,8 +75,11 @@ okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-intercepto
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-kotlinx-serialization = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit-kotlinx-serialization" }
 
+# Misc
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+
 [bundles]
-accompanist = ["accompanist-systemuicontroller"]
+accompanist = ["accompanist-systemuicontroller", "accompanist-pager"]
 androidx = ["androidx-core"]
 androidx-compose = ["androidx-activity-compose", "androidx-navigation-compose", "androidx-security-crypto"]
 buildlogic = ["gradle-plugin-android", "gradle-plugin-kotlin"]
@@ -84,6 +90,7 @@ kotlinx-serialization = ["kotlinx-serialization-json"]
 lifecycle = ["lifecycle-runtime", "lifecycle-viewmodel-ktx", "lifecycle-viewmodel-compose", "lifecycle-livedata"]
 okhttp = ["okhttp", "okhttp-logging-interceptor"]
 retrofit = ["retrofit", "retrofit-kotlinx-serialization"]
+misc = ["coil"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "plugin-android" }
