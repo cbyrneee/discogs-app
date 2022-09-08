@@ -17,7 +17,7 @@ class LoginScreenViewModel @Inject constructor(
             oauthRepository.getRequestToken(
                 consumerKey = "jXjOtjTnxNVgHiTDJqoP",
                 signature = "PCKFQRysJsRlutrEfcOGfhwHzbxKBUuv",
-                callback = "balls"
+                callback = "discogs://callback"
             )
         }
 

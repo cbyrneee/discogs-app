@@ -18,7 +18,7 @@ fun NavigationHost(navController: NavHostController, paddingValues: PaddingValue
         navController = navController,
         startDestination = Route.Auth.Login.route
     ) {
-        authRoutes()
+        authRoutes(navController)
 
         composable(Route.Home.route) {
             HomeView()

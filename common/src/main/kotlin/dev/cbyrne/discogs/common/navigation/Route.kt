@@ -20,6 +20,14 @@ open class Route(
             isVisible = false,
             hidesNavigationBar = true
         )
+
+        object Callback : Route(
+            route = "auth/callback",
+            name = "Callback",
+            icon = Icons.Filled.Lock,
+            isVisible = false,
+            hidesNavigationBar = true
+        )
     }
 
     object Home : Route(
