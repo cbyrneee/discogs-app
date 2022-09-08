@@ -12,13 +12,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import dev.cbyrne.discogs.common.navigation.Route
 import dev.cbyrne.discogs.feature.auth.view.model.CallbackScreenState
 import dev.cbyrne.discogs.feature.auth.view.model.CallbackScreenViewModel
 import dev.cbyrne.discogs.ui.layout.CenteredColumn
 
 @Composable
 fun CallbackScreen(
-    navigateToLogin: () -> Unit,
+    navigateTo: (Route) -> Unit,
     token: String?,
     verifier: String?,
     viewModel: CallbackScreenViewModel = hiltViewModel()
@@ -46,17 +47,14 @@ fun CallbackScreen(
             }
             is CallbackScreenState.Error -> {
                 LaunchedEffect(Unit) {
-                    navigateToLogin()
+                    navigateTo(Route.Auth.Login)
                     Toast.makeText(context, state.reason, Toast.LENGTH_LONG).show()
                 }
             }
             is CallbackScreenState.Success -> {
-                // TODO: Go to the home page instead of showing this text :)
-                Text(
-                    text = "Logged in to Discogs!",
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleMedium
-                )
+                LaunchedEffect(Unit) {
+                    navigateTo(Route.Home)
+                }
             }
         }
     }

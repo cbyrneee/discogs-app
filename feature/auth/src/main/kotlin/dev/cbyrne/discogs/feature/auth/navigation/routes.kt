@@ -18,11 +18,11 @@ fun NavGraphBuilder.authRoutes(navController: NavHostController) {
         deepLinks = listOf(navDeepLink {
             uriPattern = "discogs://callback?oauth_token={oauth_token}&oauth_verifier={oauth_verifier}"
         })
-    ) {
+    ) { backStackEntry ->
         CallbackScreen(
-            { navController.navigate(Route.Auth.Login.route) },
-            it.arguments?.getString("oauth_token"),
-            it.arguments?.getString("oauth_verifier")
+            navigateTo = { navController.navigate(it.route) },
+            backStackEntry.arguments?.getString("oauth_token"),
+            backStackEntry.arguments?.getString("oauth_verifier")
         )
     }
 }
