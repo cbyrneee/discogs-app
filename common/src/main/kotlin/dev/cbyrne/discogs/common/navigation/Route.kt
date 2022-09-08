@@ -1,12 +1,11 @@
-package dev.cbyrne.discogs.app.navigation
+package dev.cbyrne.discogs.common.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.NavBackStackEntry
 
-sealed class Route(
+open class Route(
     val route: String,
     val name: String,
     val icon: ImageVector,
@@ -26,11 +25,4 @@ sealed class Route(
         name = "Home",
         icon = Icons.Filled.Home,
     )
-}
-
-internal val ROUTES = setOf(Route.Home)
-
-internal fun currentRouteFromBackStack(backStackEntry: NavBackStackEntry?): Route? {
-    val route = backStackEntry?.destination?.route
-    return ROUTES.firstOrNull { it.route == route }
 }

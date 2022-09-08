@@ -7,7 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import dev.cbyrne.discogs.feature.auth.LoginScreen
+import dev.cbyrne.discogs.common.navigation.Route
+import dev.cbyrne.discogs.feature.auth.navigation.authRoutes
 import dev.cbyrne.discogs.ui.view.HomeView
 
 @Composable
@@ -17,9 +18,7 @@ fun NavigationHost(navController: NavHostController, paddingValues: PaddingValue
         navController = navController,
         startDestination = Route.Login.route
     ) {
-        composable(Route.Login.route) {
-            LoginScreen()
-        }
+        authRoutes()
 
         composable(Route.Home.route) {
             HomeView()
