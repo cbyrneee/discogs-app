@@ -32,4 +32,6 @@ class OauthRepositoryImpl @Inject constructor(
         val headers = mapOf("Authorization" to authorization)
         return oauthService.getAccessToken(headers)
     }
+
+    override suspend fun getIdentity() = oauthService.getIdentity()
 }

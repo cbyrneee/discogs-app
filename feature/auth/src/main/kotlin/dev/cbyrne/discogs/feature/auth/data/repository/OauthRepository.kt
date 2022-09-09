@@ -1,6 +1,7 @@
 package dev.cbyrne.discogs.feature.auth.data.repository
 
 import dev.cbyrne.discogs.feature.auth.data.model.OauthAccessTokenModel
+import dev.cbyrne.discogs.feature.auth.data.model.OauthIdentityModel
 import dev.cbyrne.discogs.feature.auth.data.model.OauthTokenModel
 import retrofit2.Response
 
@@ -12,4 +13,6 @@ interface OauthRepository {
         verifier: String,
         secret: String
     ): Response<OauthAccessTokenModel>
+
+    suspend fun getIdentity(): Response<OauthIdentityModel>
 }

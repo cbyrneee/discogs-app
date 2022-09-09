@@ -10,6 +10,8 @@ import dev.cbyrne.discogs.common.network.ApiResult
 import dev.cbyrne.discogs.common.network.handleApiResponse
 import dev.cbyrne.discogs.common.repository.storage.SecureStorageRepository
 import dev.cbyrne.discogs.common.repository.user.UserRepository
+import dev.cbyrne.discogs.feature.auth.data.model.OauthAccessTokenModel
+import dev.cbyrne.discogs.feature.auth.data.model.OauthIdentityModel
 import dev.cbyrne.discogs.feature.auth.data.repository.OauthRepository
 import javax.inject.Inject
 
@@ -29,6 +31,9 @@ class CallbackScreenViewModel @Inject constructor(
     var state by mutableStateOf<CallbackScreenState>(CallbackScreenState.Loading)
         private set
 
+    /**
+     * Called when the [dev.cbyrne.discogs.feature.auth.view.CallbackScreen] is first shown to the user (opened via deep-link)
+     */
     suspend fun handleToken(token: String?, verifier: String?) {
         state = CallbackScreenState.Loading
 
@@ -38,21 +43,47 @@ class CallbackScreenViewModel @Inject constructor(
             return
         }
 
-        val response = handleApiResponse { oauthRepository.getAccessToken(token, verifier, secret) }
-        state = when (response) {
-            is ApiResult.Success -> {
-                val userCredentials = UserCredentials(
-                    token = response.data.token,
-                    secret = response.data.tokenSecret
-                )
+        val result = handleApiResponse { oauthRepository.getAccessToken(token, verifier, secret) }
+        handleGetAccessToken(result)
+    }
 
-                userRepository.credentials = userCredentials
+    /**
+     * Called whenever we get a response from the [OauthRepository.getAccessToken] call
+     */
+    private suspend fun handleGetAccessToken(result: ApiResult<out OauthAccessTokenModel>) {
+        state = when (result) {
+            is ApiResult.Success -> {
+                val credentials = UserCredentials(result.data.token, result.data.tokenSecret)
+                userRepository.credentials = credentials
+
+                val identityResult = handleApiResponse { oauthRepository.getIdentity() }
+                handleGetIdentity(identityResult)
+            }
+            else -> handleApiError(result)
+        }
+    }
+
+    /**
+     * Called whenever we get a response from the [OauthRepository.getIdentity] call
+     */
+    private fun handleGetIdentity(result: ApiResult<out OauthIdentityModel>) =
+        when (result) {
+            is ApiResult.Success -> {
+                println(result.data)
                 CallbackScreenState.Success
             }
+            else -> handleApiError(result)
+        }
+
+    /**
+     * Called whenever any of the [OauthRepository] methods return an error
+     */
+    private fun <T> handleApiError(result: ApiResult<T>) =
+        when (result) {
             is ApiResult.Error ->
                 CallbackScreenState.Error("Error whilst authenticating. Please try again!")
             else ->
                 CallbackScreenState.Error("Unknown error")
+
         }
-    }
 }
