@@ -11,12 +11,13 @@ import dev.cbyrne.discogs.ui.base.DiscogsTopAppBar
 
 @Composable
 fun DiscogsLayout(
+    title: String,
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
     Scaffold(
         topBar = {
-            DiscogsTopAppBar("Home")
+            DiscogsTopAppBar(title)
         }
     ) {
         Column(

@@ -7,7 +7,7 @@ import dev.cbyrne.discogs.ui.layout.DiscogsLayout
 
 @Composable
 fun HomeView() {
-    DiscogsLayout {
+    DiscogsLayout(title = "Home") {
         Text(
             style = MaterialTheme.typography.bodyLarge,
             text = "This is the home page"
