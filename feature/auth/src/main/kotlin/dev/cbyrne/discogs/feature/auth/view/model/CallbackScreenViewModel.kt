@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.cbyrne.discogs.common.data.model.user.UserAuthorizationData
 import dev.cbyrne.discogs.common.data.model.user.UserCredentials
+import dev.cbyrne.discogs.common.data.model.user.UserIdentity
 import dev.cbyrne.discogs.common.network.ApiResult
 import dev.cbyrne.discogs.common.network.handleApiResponse
 import dev.cbyrne.discogs.common.repository.user.UserRepository
@@ -74,7 +75,11 @@ class CallbackScreenViewModel @Inject constructor(
     private fun handleGetIdentity(result: ApiResult<out OauthIdentityModel>) =
         when (result) {
             is ApiResult.Success -> {
-                println(result.data)
+                userRepository.identity = UserIdentity(
+                    id = result.data.id,
+                    username = result.data.username
+                )
+
                 CallbackScreenState.Success
             }
             else -> handleApiError(result)
