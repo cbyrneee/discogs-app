@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs.app
+package dev.cbyrne.discogs
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,10 +19,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
-import dev.cbyrne.discogs.RootView
-import dev.cbyrne.discogs.app.navigation.CustomNavigationBar
-import dev.cbyrne.discogs.app.navigation.currentRouteFromBackStack
-import dev.cbyrne.discogs.app.theme.DiscogsTheme
+import dev.cbyrne.discogs.navigation.currentRouteFromBackStack
+import dev.cbyrne.discogs.theme.DiscogsTheme
+import dev.cbyrne.discogs.ui.view.navigation.CustomNavigationBar
 
 @AndroidEntryPoint
 class DiscogsActivity : ComponentActivity() {

@@ -12,6 +12,7 @@ import dev.cbyrne.discogs.common.navigation.Route
 import dev.cbyrne.discogs.feature.auth.navigation.authRoutes
 import dev.cbyrne.discogs.ui.view.HomeView
 import dev.cbyrne.discogs.ui.view.SettingsView
+import dev.cbyrne.discogs.ui.view.model.RootViewModel
 
 @Composable
 fun RootView(

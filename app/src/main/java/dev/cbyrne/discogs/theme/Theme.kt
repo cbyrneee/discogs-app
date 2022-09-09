@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs.app.theme
+package dev.cbyrne.discogs.theme
 
 import android.app.Activity
 import android.os.Build

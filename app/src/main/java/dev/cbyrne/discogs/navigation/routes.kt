@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs.app.navigation
+    package dev.cbyrne.discogs.navigation
 
 import androidx.navigation.NavBackStackEntry
 import dev.cbyrne.discogs.common.navigation.Route

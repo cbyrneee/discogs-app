@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs.app
+package dev.cbyrne.discogs
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

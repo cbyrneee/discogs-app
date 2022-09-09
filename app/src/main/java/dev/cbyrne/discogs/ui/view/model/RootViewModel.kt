@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs
+package dev.cbyrne.discogs.ui.view.model
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

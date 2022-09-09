@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs.app.navigation
+package dev.cbyrne.discogs.ui.view.navigation
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import dev.cbyrne.discogs.navigation.ROUTES
 import dev.cbyrne.discogs.common.navigation.Route
 import androidx.compose.material3.NavigationBar as Material3NavigationBar
 

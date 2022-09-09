@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs.app.theme
+package dev.cbyrne.discogs.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
