@@ -2,6 +2,7 @@ package dev.cbyrne.discogs.common.repository.user.impl
 
 import dev.cbyrne.discogs.common.data.model.user.UserAuthorizationData
 import dev.cbyrne.discogs.common.data.model.user.UserCredentials
+import dev.cbyrne.discogs.common.data.model.user.UserIdentity
 import dev.cbyrne.discogs.common.repository.storage.SecureStorageRepository
 import dev.cbyrne.discogs.common.repository.storage.getObject
 import dev.cbyrne.discogs.common.repository.storage.setObject
@@ -17,6 +18,7 @@ class UserRepositoryImpl @Inject constructor(
 ) : UserRepository {
     override var credentials: UserCredentials? by secureStorage()
     override var authorizationData: UserAuthorizationData? by secureStorage()
+    override var identity: UserIdentity? by secureStorage()
 
     private fun <T> secureStorage(): SecureStorageDelegate<T> = SecureStorageDelegate()
 

@@ -2,6 +2,7 @@ package dev.cbyrne.discogs.common.repository.user
 
 import dev.cbyrne.discogs.common.data.model.user.UserAuthorizationData
 import dev.cbyrne.discogs.common.data.model.user.UserCredentials
+import dev.cbyrne.discogs.common.data.model.user.UserIdentity
 
 interface UserRepository {
     /**
@@ -15,4 +16,9 @@ interface UserRepository {
      * access tokens.
      */
     var authorizationData: UserAuthorizationData?
+
+    /**
+     * The user's identity (ID and username)
+     */
+    var identity: UserIdentity?
 }
