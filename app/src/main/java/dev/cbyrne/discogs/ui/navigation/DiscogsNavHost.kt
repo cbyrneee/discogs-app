@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import dev.cbyrne.discogs.common.navigation.Route
 import dev.cbyrne.discogs.feature.auth.navigation.authRoutes
-import dev.cbyrne.discogs.ui.view.HomeView
+import dev.cbyrne.discogs.feature.discover.navigation.discoverRoutes
 import dev.cbyrne.discogs.ui.view.SettingsView
 import dev.cbyrne.discogs.ui.view.model.RootViewModel
 
@@ -25,13 +25,10 @@ fun DiscogsNavHost(
     NavHost(
         modifier = Modifier.padding(paddingValues),
         navController = navController,
-        startDestination = if (credentials != null) Route.Home.route else Route.Auth.Login.route
+        startDestination = if (credentials != null) Route.Discover.Home.route else Route.Auth.Login.route
     ) {
         authRoutes(navController)
-
-        composable(Route.Home.route) {
-            HomeView()
-        }
+        discoverRoutes(navController)
 
         composable(Route.Settings.route) {
             SettingsView(navigateTo = { navController.navigate(it.route) })

@@ -31,11 +31,13 @@ open class Route(
         )
     }
 
-    object Home : Route(
-        route = "home",
-        name = "Home",
-        icon = Icons.Filled.Home,
-    )
+    object Discover {
+        object Home : Route(
+            route = "discover/home",
+            name = "Home",
+            icon = Icons.Filled.Home
+        )
+    }
 
     object Settings : Route(
         route = "settings",

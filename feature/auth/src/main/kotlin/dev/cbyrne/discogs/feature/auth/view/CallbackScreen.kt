@@ -53,7 +53,7 @@ fun CallbackScreen(
             }
             is CallbackScreenState.Success -> {
                 LaunchedEffect(Unit) {
-                    navigateTo(Route.Home)
+                    navigateTo(Route.Discover.Home)
                 }
             }
         }

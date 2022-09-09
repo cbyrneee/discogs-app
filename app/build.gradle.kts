@@ -29,4 +29,5 @@ android {
 dependencies {
     implementation(project(":common"))
     implementation(project(":feature:auth"))
+    implementation(project(":feature:discover"))
 }

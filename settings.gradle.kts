@@ -21,4 +21,5 @@ rootProject.name = "Discogs"
 include(":app")
 include(":common")
 include(":feature:auth")
+include(":feature:discover")
 include(":ui")
