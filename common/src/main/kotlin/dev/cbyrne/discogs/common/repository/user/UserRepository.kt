@@ -1,5 +1,6 @@
 package dev.cbyrne.discogs.common.repository.user
 
+import dev.cbyrne.discogs.common.data.model.user.UserAuthorizationData
 import dev.cbyrne.discogs.common.data.model.user.UserCredentials
 
 interface UserRepository {
@@ -8,4 +9,10 @@ interface UserRepository {
      * When setting this variable to null, it will be erased from secure storage. ([android.content.SharedPreferences.Editor.remove])
      */
     var credentials: UserCredentials?
+
+    /**
+     * The user's temporary login information. This is used for exchanging authorization codes to
+     * access tokens.
+     */
+    var authorizationData: UserAuthorizationData?
 }

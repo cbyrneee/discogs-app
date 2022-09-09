@@ -22,6 +22,8 @@ kotlinx-serialization-json = "1.4.0"
 lifecycle = "2.5.1"
 
 okhttp = "4.10.0"
+okhttp-signpost = "1.1.0"
+oauth-signpost-core = "1.2.1.2"
 
 retrofit = "2.9.0"
 retrofit-kotlinx-serialization = "0.8.0"
@@ -70,6 +72,8 @@ lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", ver
 # OkHttp
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+okhttp-signpost = { module = "se.akerfeldt:okhttp-signpost", version.ref = "okhttp-signpost" }
+oauth-signpost-core = { module = "oauth.signpost:signpost-core", version.ref = "oauth-signpost-core" }
 
 # Retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
@@ -88,7 +92,7 @@ compose-debug = ["compose-ui-tooling", "compose-ui-test-manifest"]
 hilt = ["hilt", "hilt-navigation-compose"]
 kotlinx-serialization = ["kotlinx-serialization-json"]
 lifecycle = ["lifecycle-runtime", "lifecycle-viewmodel-ktx", "lifecycle-viewmodel-compose", "lifecycle-livedata"]
-okhttp = ["okhttp", "okhttp-logging-interceptor"]
+okhttp = ["okhttp", "okhttp-logging-interceptor", "okhttp-signpost", "oauth-signpost-core"]
 retrofit = ["retrofit", "retrofit-kotlinx-serialization"]
 misc = ["coil"]
 

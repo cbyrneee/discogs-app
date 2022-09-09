@@ -1,11 +1,11 @@
 package dev.cbyrne.discogs.common.di
 
-import dev.cbyrne.discogs.common.util.applyCredentials
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.cbyrne.discogs.common.network.OAuthInterceptor
 import dev.cbyrne.discogs.common.repository.user.UserRepository
 import dev.cbyrne.discogs.common.util.BASE_URL
 import dev.cbyrne.discogs.common.util.JSON_MEDIA_TYPE
@@ -27,11 +27,11 @@ object NetworkModule {
                 val request = chain.request()
                     .newBuilder()
                     .addHeader("User-Agent", "CustomDiscogsApp/1.0")
-                    .applyCredentials(userRepository.credentials)
                     .build()
 
                 chain.proceed(request)
             }
+            .addInterceptor(OAuthInterceptor(userRepository))
             .addInterceptor(HttpLoggingInterceptor().setLevel(Level.BODY))
             .build()
 

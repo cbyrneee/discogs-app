@@ -5,14 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.cbyrne.discogs.common.data.model.user.UserAuthorizationData
 import dev.cbyrne.discogs.common.data.model.user.UserCredentials
 import dev.cbyrne.discogs.common.network.ApiResult
 import dev.cbyrne.discogs.common.network.handleApiResponse
-import dev.cbyrne.discogs.common.repository.storage.SecureStorageRepository
 import dev.cbyrne.discogs.common.repository.user.UserRepository
+import dev.cbyrne.discogs.feature.auth.data.api.OauthApiService
 import dev.cbyrne.discogs.feature.auth.data.model.OauthAccessTokenModel
 import dev.cbyrne.discogs.feature.auth.data.model.OauthIdentityModel
-import dev.cbyrne.discogs.feature.auth.data.repository.OauthRepository
 import javax.inject.Inject
 
 sealed class CallbackScreenState {
@@ -24,8 +24,7 @@ sealed class CallbackScreenState {
 
 @HiltViewModel
 class CallbackScreenViewModel @Inject constructor(
-    private val oauthRepository: OauthRepository,
-    private val secureStorageRepository: SecureStorageRepository,
+    private val oauthApiService: OauthApiService,
     private val userRepository: UserRepository
 ) : ViewModel() {
     var state by mutableStateOf<CallbackScreenState>(CallbackScreenState.Loading)
@@ -37,18 +36,24 @@ class CallbackScreenViewModel @Inject constructor(
     suspend fun handleToken(token: String?, verifier: String?) {
         state = CallbackScreenState.Loading
 
-        val secret = secureStorageRepository.get("oauth_token_secret")
-        if (token == null || verifier == null || secret == null) {
+        val authorizationData = userRepository.authorizationData
+        if (token == null || verifier == null || authorizationData == null) {
             state = CallbackScreenState.Error(reason = "Please supply an oauth token!")
             return
         }
 
-        val result = handleApiResponse { oauthRepository.getAccessToken(token, verifier, secret) }
+        userRepository.authorizationData = UserAuthorizationData.Full(
+            authorizationData.secret,
+            token = token,
+            verifier = verifier
+        )
+
+        val result = handleApiResponse { oauthApiService.getAccessToken() }
         handleGetAccessToken(result)
     }
 
     /**
-     * Called whenever we get a response from the [OauthRepository.getAccessToken] call
+     * Called whenever we get a response from the [OauthApiService.getAccessToken] call
      */
     private suspend fun handleGetAccessToken(result: ApiResult<out OauthAccessTokenModel>) {
         state = when (result) {
@@ -56,7 +61,7 @@ class CallbackScreenViewModel @Inject constructor(
                 val credentials = UserCredentials(result.data.token, result.data.tokenSecret)
                 userRepository.credentials = credentials
 
-                val identityResult = handleApiResponse { oauthRepository.getIdentity() }
+                val identityResult = handleApiResponse { oauthApiService.getIdentity() }
                 handleGetIdentity(identityResult)
             }
             else -> handleApiError(result)
@@ -64,7 +69,7 @@ class CallbackScreenViewModel @Inject constructor(
     }
 
     /**
-     * Called whenever we get a response from the [OauthRepository.getIdentity] call
+     * Called whenever we get a response from the [OauthApiService.getIdentity] call
      */
     private fun handleGetIdentity(result: ApiResult<out OauthIdentityModel>) =
         when (result) {
@@ -76,7 +81,7 @@ class CallbackScreenViewModel @Inject constructor(
         }
 
     /**
-     * Called whenever any of the [OauthRepository] methods return an error
+     * Called whenever any of the [OauthApiService] methods return an error
      */
     private fun <T> handleApiError(result: ApiResult<T>) =
         when (result) {
