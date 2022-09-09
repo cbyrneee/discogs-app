@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs
+package dev.cbyrne.discogs.ui.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -15,7 +15,7 @@ import dev.cbyrne.discogs.ui.view.SettingsView
 import dev.cbyrne.discogs.ui.view.model.RootViewModel
 
 @Composable
-fun RootView(
+fun DiscogsNavHost(
     navController: NavHostController,
     paddingValues: PaddingValues,
     viewModel: RootViewModel = hiltViewModel()

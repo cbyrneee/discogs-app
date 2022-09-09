@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs.ui.view.navigation
+package dev.cbyrne.discogs.ui.navigation
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
@@ -7,19 +7,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import dev.cbyrne.discogs.navigation.ROUTES
 import dev.cbyrne.discogs.common.navigation.Route
+import dev.cbyrne.discogs.navigation.ROUTES
 import androidx.compose.material3.NavigationBar as Material3NavigationBar
 
 @Composable
-fun CustomNavigationBar(navController: NavController, currentRoute: Route?) {
+fun DiscogsNavigationBar(navController: NavController, currentScreen: Route?) {
     Material3NavigationBar {
         ROUTES
             .filter { it.isVisible }
             .forEach { screen ->
                 ScreenNavigationItem(
                     route = screen,
-                    isSelected = currentRoute == screen,
+                    isSelected = currentScreen == screen,
                     navController = navController
                 )
             }
