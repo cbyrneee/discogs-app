@@ -9,14 +9,20 @@ import dev.cbyrne.discogs.feature.auth.view.CallbackScreen
 import dev.cbyrne.discogs.feature.auth.view.LoginScreen
 
 fun NavGraphBuilder.authRoutes(navController: NavHostController) {
-    composable(Route.Auth.Login.route) {
+    composable(
+        route = Route.Auth.Login.route,
+        deepLinks = listOf(navDeepLink {
+            uriPattern = "discogs://callback?denied={denied}"
+        })
+    ) {
         LoginScreen()
     }
 
     composable(
         route = Route.Auth.Callback.route,
         deepLinks = listOf(navDeepLink {
-            uriPattern = "discogs://callback?oauth_token={oauth_token}&oauth_verifier={oauth_verifier}"
+            uriPattern =
+                "discogs://callback?oauth_token={oauth_token}&oauth_verifier={oauth_verifier}"
         })
     ) { backStackEntry ->
         CallbackScreen(
