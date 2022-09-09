@@ -19,6 +19,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Discogs"
 include(":app")
+include(":api")
 include(":common")
 include(":feature:auth")
 include(":feature:discover")
