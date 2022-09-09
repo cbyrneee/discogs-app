@@ -1,6 +1,5 @@
 package dev.cbyrne.discogs
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
@@ -14,7 +13,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -25,8 +23,6 @@ import dev.cbyrne.discogs.ui.view.navigation.CustomNavigationBar
 
 @AndroidEntryPoint
 class DiscogsActivity : ComponentActivity() {
-    private var navHostController: NavHostController? = null
-
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +33,11 @@ class DiscogsActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                 ) {
                     val navController = rememberNavController()
-                    navHostController = navController
+                    val backStackEntry by navController.currentBackStackEntryAsState()
 
                     val systemUiController = rememberSystemUiController()
+                    val currentScreen = currentRouteFromBackStack(backStackEntry)
+
                     SideEffect {
                         window.setFlags(
                             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -48,9 +46,6 @@ class DiscogsActivity : ComponentActivity() {
 
                         systemUiController.setStatusBarColor(color = Color.Transparent)
                     }
-
-                    val backStackEntry by navController.currentBackStackEntryAsState()
-                    val currentScreen = currentRouteFromBackStack(backStackEntry)
 
                     Scaffold(
                         topBar = {
@@ -67,10 +62,5 @@ class DiscogsActivity : ComponentActivity() {
                 }
             }
         }
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        navHostController?.handleDeepLink(intent)
     }
 }
