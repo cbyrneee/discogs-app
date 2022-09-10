@@ -9,12 +9,12 @@ import dev.cbyrne.discogs.api.service.UserService
 import dev.cbyrne.discogs.common.data.model.user.UserAuthorizationData
 import dev.cbyrne.discogs.common.data.model.user.UserCredentials
 import dev.cbyrne.discogs.common.data.model.user.UserIdentity
-import dev.cbyrne.discogs.common.network.ApiError
-import dev.cbyrne.discogs.common.network.toResult
 import dev.cbyrne.discogs.common.repository.credentials.CredentialsRepository
 import dev.cbyrne.discogs.common.repository.storage.SecureStorageBacked
 import dev.cbyrne.discogs.common.repository.storage.SecureStorageRepository
 import dev.cbyrne.discogs.common.repository.user.UserRepository
+import dev.cbyrne.discogs.common.util.ApiError
+import dev.cbyrne.discogs.common.util.toResult
 import javax.inject.Inject
 import javax.inject.Singleton
 

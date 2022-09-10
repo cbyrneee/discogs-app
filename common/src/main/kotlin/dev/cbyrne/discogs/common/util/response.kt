@@ -1,7 +1,6 @@
-package dev.cbyrne.discogs.common.network
+package dev.cbyrne.discogs.common.util
 
 import dev.cbyrne.discogs.common.data.model.ErrorModel
-import dev.cbyrne.discogs.common.util.json
 import kotlinx.serialization.decodeFromString
 import retrofit2.HttpException
 import retrofit2.Response
