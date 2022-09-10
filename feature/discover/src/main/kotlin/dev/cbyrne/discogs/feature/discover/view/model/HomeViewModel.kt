@@ -7,12 +7,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.cbyrne.discogs.api.model.user.UserInformationModel
+import dev.cbyrne.discogs.api.model.user.collection.FolderReleasesModel
 import dev.cbyrne.discogs.common.repository.user.UserRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class HomeViewState {
-    class Loaded(val information: UserInformationModel) : HomeViewState()
+    class Loaded(
+        val information: UserInformationModel,
+        val releases: List<FolderReleasesModel.Release>
+    ) : HomeViewState()
+
     class Error(val reason: String) : HomeViewState()
     object Loading : HomeViewState()
 }
@@ -42,10 +47,18 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun fetchData() {
-        val result = userRepository.current()
-        state = result.fold(
-            onSuccess = { HomeViewState.Loaded(it) },
-            onFailure = { HomeViewState.Error(it.message ?: "Unknown error") }
-        )
+        val information = userRepository.current()
+            .getOrElse {
+                state = HomeViewState.Error(it.message ?: "Unknown error")
+                return
+            }
+
+        val releases = userRepository.releases(0)
+            .getOrElse {
+                state = HomeViewState.Error(it.message ?: "Unknown error")
+                return
+            }
+
+        state = HomeViewState.Loaded(information, releases)
     }
 }
