@@ -4,7 +4,9 @@ import dev.cbyrne.discogs.api.model.oauth.OAuthAccessTokenModel
 import dev.cbyrne.discogs.api.model.oauth.OAuthIdentityModel
 import dev.cbyrne.discogs.api.model.oauth.OAuthRequestTokenModel
 import dev.cbyrne.discogs.api.model.user.UserInformationModel
+import dev.cbyrne.discogs.api.model.user.collection.FolderReleasesModel
 import dev.cbyrne.discogs.api.service.OAuthService
+import dev.cbyrne.discogs.api.service.UserCollectionService
 import dev.cbyrne.discogs.api.service.UserService
 import dev.cbyrne.discogs.common.data.model.user.UserAuthorizationData
 import dev.cbyrne.discogs.common.data.model.user.UserCredentials
@@ -22,6 +24,7 @@ import javax.inject.Singleton
 class UserRepositoryImpl @Inject constructor(
     private val credentialsRepository: CredentialsRepository,
     private val oauthService: OAuthService,
+    private val userCollectionService: UserCollectionService,
     private val userService: UserService,
     secureStorageRepository: SecureStorageRepository
 ) : UserRepository, SecureStorageBacked(secureStorageRepository, "user") {
@@ -32,6 +35,19 @@ class UserRepositoryImpl @Inject constructor(
             ?: return Result.failure(ApiError.Unauthorized)
 
         return userService.retrieve(username).toResult()
+    }
+
+    override suspend fun releases(folderId: Int): Result<List<FolderReleasesModel.Release>> {
+        if (credentialsRepository.credentials == null) {
+            return Result.failure(ApiError.Unauthorized)
+        }
+
+        val username = identity?.username
+            ?: return Result.failure(ApiError.Unauthorized)
+
+        return userCollectionService.retrieveFolderReleases(username, folderId)
+            .toResult()
+            .map { it.releases }
     }
 
     override suspend fun authorize(): Result<OAuthAccessTokenModel> {
