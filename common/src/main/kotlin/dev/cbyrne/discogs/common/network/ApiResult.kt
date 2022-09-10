@@ -7,54 +7,53 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-sealed class ApiResult<T> {
-    data class Success<T>(val data: T) : ApiResult<T>()
-    open class Error(val code: Int, val message: String? = "Unknown error") : ApiResult<Nothing>()
-    object NotFound : Error(404, message = "Not Found")
+sealed class ApiError : Error() {
+    data class Specific(val data: ErrorModel) : ApiError()
+    data class Generic(val code: Int, override val message: String? = "Unknown Error") : ApiError()
+
+    object Unauthorized : ApiError()
+    object NotFound : ApiError()
 }
 
-suspend fun <T> handleApiResponse(execute: suspend () -> Response<T>): ApiResult<out T> {
-    return try {
-        val response = execute()
-        val body = response.body()
+fun <T> Response<T>.toResult(): Result<T> {
+    try {
+        val body = body()
 
-        // If the response code is not 2xx, we return a different data type
-        if (!response.isSuccessful) {
-            return when (response.code()) {
-                404 -> ApiResult.NotFound
-                else -> return handleResponseError(response)
-            }
+        if (!isSuccessful) {
+            return handleError()
         }
 
-        // If we have a body and the request code is 2xx
-        if (body != null) {
-            return ApiResult.Success(body)
+        if (body == null) {
+            return genericError()
         }
 
-        handleGenericResponseError(response)
+        return Result.success(body)
     } catch (e: HttpException) {
-        return handleHttpException(e)
+        return genericError()
     } catch (e: IOException) {
         e.printStackTrace()
-        handleUnknownError()
+        return Result.failure(ApiError.Generic(-1))
     }
 }
 
-private fun <T> handleResponseError(response: Response<T>): ApiResult<out T> {
-    val error = serializeError(response) ?: return handleGenericResponseError(response)
-    return ApiResult.Error(response.code(), error.message)
+private fun <T> Response<T>.handleError(): Result<T> {
+    return Result.failure(
+        when (code()) {
+            401 -> ApiError.Unauthorized
+            404 -> ApiError.NotFound
+            else -> {
+                val data = serializeError(this) ?: return genericError()
+                ApiError.Specific(data)
+            }
+        }
+    )
+}
+
+private fun <T> Response<T>.genericError(): Result<T> {
+    return Result.failure(ApiError.Generic(code(), message()))
 }
 
 private fun <T> serializeError(response: Response<T>): ErrorModel? {
     val errorBody = response.errorBody() ?: return null
     return runCatching { json.decodeFromString<ErrorModel>(errorBody.string()) }.getOrNull()
 }
-
-private fun <T> handleGenericResponseError(response: Response<T>): ApiResult<out T> =
-    ApiResult.Error(response.code(), response.message())
-
-private fun <T> handleUnknownError(): ApiResult<out T> =
-    ApiResult.Error(code = -1, message = "Unknown error")
-
-private fun <T> handleHttpException(e: HttpException): ApiResult<out T> =
-    ApiResult.Error(e.code(), e.message())

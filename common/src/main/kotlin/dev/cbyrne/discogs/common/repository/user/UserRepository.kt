@@ -1,5 +1,7 @@
 package dev.cbyrne.discogs.common.repository.user
 
+import dev.cbyrne.discogs.api.model.oauth.OAuthAccessTokenModel
+import dev.cbyrne.discogs.api.model.oauth.OAuthIdentityModel
 import dev.cbyrne.discogs.api.model.oauth.OAuthRequestTokenModel
 import dev.cbyrne.discogs.api.model.user.UserInformationModel
 import dev.cbyrne.discogs.common.data.model.user.UserIdentity
@@ -19,7 +21,7 @@ interface UserRepository {
      * Uses the current [authorizationData] to get an access token, populating the [credentials]
      * field.
      */
-    suspend fun authorize(): Result<Nothing?>
+    suspend fun authorize(): Result<OAuthAccessTokenModel>
 
     /**
      * Gets an authorization request token for the user
@@ -29,5 +31,5 @@ interface UserRepository {
     /**
      * Uses the current [credentials] to get the user's OAuth identity ([identity])
      */
-    suspend fun retrieveIdentity(): Result<Nothing?>
+    suspend fun retrieveIdentity(): Result<OAuthIdentityModel>
 }
