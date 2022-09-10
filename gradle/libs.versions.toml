@@ -33,6 +33,7 @@ coil = "2.2.1"
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
+accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
 
 # AndroidX core
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -83,7 +84,7 @@ retrofit-kotlinx-serialization = { module = "com.jakewharton.retrofit:retrofit2-
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
 [bundles]
-accompanist = ["accompanist-systemuicontroller", "accompanist-pager"]
+accompanist = ["accompanist-systemuicontroller", "accompanist-pager", "accompanist-swiperefresh"]
 androidx = ["androidx-core"]
 androidx-compose = ["androidx-activity-compose", "androidx-navigation-compose", "androidx-security-crypto"]
 buildlogic = ["gradle-plugin-android", "gradle-plugin-kotlin"]
