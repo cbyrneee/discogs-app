@@ -4,6 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.cbyrne.discogs.common.repository.credentials.CredentialsRepository
+import dev.cbyrne.discogs.common.repository.credentials.impl.CredentialsRepositoryImpl
 import dev.cbyrne.discogs.common.repository.storage.SecureStorageRepository
 import dev.cbyrne.discogs.common.repository.storage.impl.SecureStorageRepositoryImpl
 import dev.cbyrne.discogs.common.repository.user.UserRepository
@@ -17,4 +19,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun getUserRepository(repository: UserRepositoryImpl): UserRepository
+
+    @Binds
+    abstract fun getCredentialsRepository(repository: CredentialsRepositoryImpl): CredentialsRepository
 }

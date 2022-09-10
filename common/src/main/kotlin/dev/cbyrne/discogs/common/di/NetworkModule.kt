@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.cbyrne.discogs.common.network.OAuthInterceptor
-import dev.cbyrne.discogs.common.repository.user.UserRepository
+import dev.cbyrne.discogs.common.repository.credentials.CredentialsRepository
 import dev.cbyrne.discogs.common.util.BASE_URL
 import dev.cbyrne.discogs.common.util.JSON_MEDIA_TYPE
 import dev.cbyrne.discogs.common.util.json
@@ -18,10 +18,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule {
+class NetworkModule {
     @Provides
     @Singleton
-    fun provideOkHttpClient(userRepository: UserRepository): OkHttpClient =
+    fun provideOkHttpClient(credentialsRepository: CredentialsRepository): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor { chain ->
                 val request = chain.request()
@@ -31,7 +31,7 @@ object NetworkModule {
 
                 chain.proceed(request)
             }
-            .addInterceptor(OAuthInterceptor(userRepository))
+            .addInterceptor(OAuthInterceptor(credentialsRepository))
             .addInterceptor(HttpLoggingInterceptor().setLevel(Level.BODY))
             .build()
 

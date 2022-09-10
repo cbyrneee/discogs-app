@@ -1,24 +1,33 @@
 package dev.cbyrne.discogs.common.repository.user
 
-import dev.cbyrne.discogs.common.data.model.user.UserAuthorizationData
-import dev.cbyrne.discogs.common.data.model.user.UserCredentials
+import dev.cbyrne.discogs.api.model.oauth.OAuthRequestTokenModel
+import dev.cbyrne.discogs.api.model.user.UserInformationModel
 import dev.cbyrne.discogs.common.data.model.user.UserIdentity
 
 interface UserRepository {
     /**
-     * The user's access token and information used when signing requests to the Discogs API
-     * When setting this variable to null, it will be erased from secure storage. ([android.content.SharedPreferences.Editor.remove])
-     */
-    var credentials: UserCredentials?
-
-    /**
-     * The user's temporary login information. This is used for exchanging authorization codes to
-     * access tokens.
-     */
-    var authorizationData: UserAuthorizationData?
-
-    /**
      * The user's identity (ID and username)
      */
     var identity: UserIdentity?
+
+    /**
+     * The currently logged in user's information
+     */
+    suspend fun current(): Result<UserInformationModel>
+
+    /**
+     * Uses the current [authorizationData] to get an access token, populating the [credentials]
+     * field.
+     */
+    suspend fun authorize(): Result<Nothing?>
+
+    /**
+     * Gets an authorization request token for the user
+     */
+    suspend fun retrieveAuthorizationRequestToken(): Result<OAuthRequestTokenModel>
+
+    /**
+     * Uses the current [credentials] to get the user's OAuth identity ([identity])
+     */
+    suspend fun retrieveIdentity(): Result<Nothing?>
 }

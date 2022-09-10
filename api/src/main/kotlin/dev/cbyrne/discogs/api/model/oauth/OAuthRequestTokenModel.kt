@@ -1,12 +1,12 @@
-package dev.cbyrne.discogs.feature.auth.data.model
+package dev.cbyrne.discogs.api.model.oauth
 
-import dev.cbyrne.discogs.common.util.PropertiesDecoder
-import dev.cbyrne.discogs.common.util.named
+import dev.cbyrne.discogs.api.util.PropertiesDecoder
+import dev.cbyrne.discogs.api.util.named
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 
-@Serializable(with = OauthTokenModelSerializer::class)
-data class OauthTokenModel(
+@Serializable(with = OAuthRequestTokenModel.Serializer::class)
+data class OAuthRequestTokenModel(
     private val map: Map<String, String>
 ) {
     val token: String by map.named("oauth_token")
@@ -14,7 +14,7 @@ data class OauthTokenModel(
     val callbackConfirmed: Boolean by map.named("oauth_callback_confirmed") {
         it.toString().toBoolean()
     }
-}
 
-object OauthTokenModelSerializer :
-    KSerializer<OauthTokenModel> by PropertiesDecoder(::OauthTokenModel)
+    internal object Serializer :
+        KSerializer<OAuthRequestTokenModel> by PropertiesDecoder(::OAuthRequestTokenModel)
+}

@@ -1,4 +1,4 @@
-package dev.cbyrne.discogs.api.model
+package dev.cbyrne.discogs.api.model.user
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -1,6 +1,6 @@
 @file:Suppress("UNCHECKED_CAST")
 
-package dev.cbyrne.discogs.common.util
+package dev.cbyrne.discogs.api.util
 
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty

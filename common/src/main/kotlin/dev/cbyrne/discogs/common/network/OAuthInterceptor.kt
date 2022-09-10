@@ -3,7 +3,7 @@ package dev.cbyrne.discogs.common.network
 import dev.cbyrne.discogs.common.BuildConfig
 import dev.cbyrne.discogs.common.data.model.user.UserAuthorizationData
 import dev.cbyrne.discogs.common.data.model.user.UserCredentials
-import dev.cbyrne.discogs.common.repository.user.UserRepository
+import dev.cbyrne.discogs.common.repository.credentials.CredentialsRepository
 import oauth.signpost.http.HttpParameters
 import oauth.signpost.signature.PlainTextMessageSigner
 import okhttp3.Interceptor
@@ -11,14 +11,14 @@ import okhttp3.Request
 import okhttp3.Response
 import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer
 
-class OAuthInterceptor(private val userRepository: UserRepository) : Interceptor {
+class OAuthInterceptor(private val credentialsRepository: CredentialsRepository) : Interceptor {
     private val consumer = OkHttpOAuthConsumer(
         BuildConfig.CONSUMERKEY,
         BuildConfig.CONSUMERSECRET
     )
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val credentials = userRepository.credentials
+        val credentials = credentialsRepository.credentials
         loginWithCredentials(credentials)
 
         // Let's sign the request :^)
@@ -47,14 +47,14 @@ class OAuthInterceptor(private val userRepository: UserRepository) : Interceptor
         // This data is supplied to us during the authorization process
         // If we have `Full` authorization data (i.e. a token, secret and verifier), the current
         // request should be requesting the access token.
-        val data = userRepository.authorizationData
+        val data = credentialsRepository.authorizationData
         if (data is UserAuthorizationData.Full) {
             consumer.setTokenWithSecret(data.token, data.secret)
             additionalParameters["oauth_verifier"] = sortedSetOf(data.verifier)
 
             // Once we're finished with this data we don't need it anymore, it expires
             // after 15 minutes anyways.
-            userRepository.authorizationData = null
+            credentialsRepository.authorizationData = null
         }
 
         consumer.setAdditionalParameters(additionalParameters)

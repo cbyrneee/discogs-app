@@ -1,10 +1,10 @@
-package dev.cbyrne.discogs.feature.auth.data.model
+package dev.cbyrne.discogs.api.model.oauth
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class OauthIdentityModel(
+data class OAuthIdentityModel(
     val id: Int,
     val username: String,
     @SerialName("resource_url")

@@ -9,8 +9,8 @@ import java.io.IOException
 
 sealed class ApiResult<T> {
     data class Success<T>(val data: T) : ApiResult<T>()
-    data class Error(val code: Int, val message: String? = "Unknown error") : ApiResult<Nothing>()
-    object NotFound : ApiResult<Nothing>()
+    open class Error(val code: Int, val message: String? = "Unknown error") : ApiResult<Nothing>()
+    object NotFound : Error(404, message = "Not Found")
 }
 
 suspend fun <T> handleApiResponse(execute: suspend () -> Response<T>): ApiResult<out T> {
