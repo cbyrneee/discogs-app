@@ -22,8 +22,15 @@ class HomeViewModel @Inject constructor(
     var state by mutableStateOf<HomeViewState>(HomeViewState.Loading)
 
     suspend fun load() {
-        state = HomeViewState.Loading
+        if (state is HomeViewState.Loaded) {
+            return
+        }
 
+        state = HomeViewState.Loading
+        reload()
+    }
+
+    suspend fun reload() {
         val result = userRepository.current()
         state = result.fold(
             onSuccess = { HomeViewState.Loaded(it) },
